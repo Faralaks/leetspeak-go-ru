@@ -7,10 +7,10 @@ import (
 	"strings"
 )
 
-var Alphabet map[rune][]rune
+var Alphabet map[rune][]string
 
 func init() {
-	Alphabet = make(map[rune][]rune)
+	Alphabet = make(map[rune][]string)
 	var preAlphabet map[string]string
 	alphFile, err := ioutil.ReadFile("./alphabet.json")
 	if err != nil {
@@ -24,9 +24,9 @@ func init() {
 	}
 	for key, val := range preAlphabet {
 		l := []rune(key)[0]
-		splited := []rune{}
+		splited := []string{}
 		for _, letter := range strings.Split(val, " ") {
-			splited = append(splited, []rune(letter)[0])
+			splited = append(splited, letter)
 		}
 		Alphabet[l] = splited
 	}
@@ -37,15 +37,13 @@ func Translate(text string) string {
 	text = strings.ToLower(text)
 	runes := []rune(strings.ToLower(text))
 	length := len(runes)
-	leet := make([]rune, 0, length)
+	leet := make([]string, 0, length)
 	for _, letter := range runes {
 		if alt, ok := Alphabet[letter]; ok {
-
 			leet = append(leet, alt[rand.Intn(len(alt))])
 		} else {
-
-			leet = append(leet, letter)
+			leet = append(leet, string(letter))
 		}
 	}
-	return string(leet)
+	return strings.Join(leet, "")
 }
