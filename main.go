@@ -14,8 +14,8 @@ func init() {
 	var preAlphabet map[string]string
 	alphFile, err := ioutil.ReadFile("./alphabet.json")
 	if err != nil {
-		println("Panic!  Can't open alphabet.json | " + err.Error())
-		panic(err)
+		println("Can't find alphabet.json! Switch to internal alphabet!")
+		alphFile = InternalAlphabet
 	}
 	err = json.Unmarshal(alphFile, &preAlphabet)
 	if err != nil {
