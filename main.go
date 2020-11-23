@@ -34,7 +34,6 @@ func init() {
 }
 
 func Translate(text string) string {
-	text = strings.ToLower(text)
 	runes := []rune(strings.ToLower(text))
 	length := len(runes)
 	leet := make([]string, 0, length)
